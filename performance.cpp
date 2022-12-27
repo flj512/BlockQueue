@@ -2,7 +2,7 @@
 #include <iostream>
 #include "BlockQueue.hpp"
 
-static const int MAX_ITERATION = 1000000;
+static const int MAX_ITERATION = 10000000;
 
 void fun(TinyLib::BlockQueue<int>& queue)
 {
@@ -48,7 +48,7 @@ void mutex_perf()
 }
 void block_queue_perf()
 {
-    TinyLib::BlockQueue<int> queue(10); 
+    TinyLib::BlockQueue<int> queue(100); //queue size will affect the result
     auto t=std::thread(fun,std::ref(queue));
     for(int i=0;i<MAX_ITERATION;i++){
         queue.push(i);

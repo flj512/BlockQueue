@@ -92,6 +92,13 @@ public:
  * @return * size_t 
  */
     size_t size();
+/**
+ * @brief return whether the queue is full 
+ * 
+ * @return true 
+ * @return false 
+ */
+    bool full();
 private:
     int _push_impl(const T& t,bool is_block,bool drop_oldest,float timeout=0.0);
     int _pop_impl(T& t,bool is_block,float timeout=0.0);
@@ -137,6 +144,14 @@ size_t BlockQueue<T>::size()
     std::unique_lock<std::mutex> lock(_buffer_mtx);
     return _buffer.size();
 }
+
+template<typename T>
+bool BlockQueue<T>::full()
+{
+    std::unique_lock<std::mutex> lock(_buffer_mtx);
+    return (_max_size>0 && _buffer.size()>=_max_size);
+}
+
 template<typename T>
 int BlockQueue<T>::_push_impl(const T& t,bool is_block,bool drop_oldest,float timeout)
 {
