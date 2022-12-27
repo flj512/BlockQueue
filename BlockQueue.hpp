@@ -1,7 +1,7 @@
 /**
  * @file BlockQueue.hpp
  * @author flj
- * @brief 
+ * @brief A block queue implementation for c++ with only a single header file,support block or none-block mode.
  * @version 0.1
  * @date 2022-12-27
  * 
