@@ -8,14 +8,8 @@ int main()
     assert(queue.push(1)==0);
     assert(queue.push(2)==0);
     assert(queue.push(3)==0);
-    assert(queue.size()==3);
-
-    int value;
-    assert(queue.pop(value)==0 && value==1);
-    assert(queue.pop(value)==0 && value==2);
-    assert(queue.pop(value)==0 && value==3);
+    queue.clear();
     assert(queue.size()==0);
 
-    assert(queue.pop_noneblock(value)<0);
     return 0;
 }

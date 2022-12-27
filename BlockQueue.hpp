@@ -6,6 +6,7 @@
  * @date 2022-12-27
  * 
  * @copyright Copyright (c) 2022
+ * 
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
  *  version 2 as published by the Free Software Foundation.
@@ -141,7 +142,9 @@ void BlockQueue<T>::clear()
 {
     {
         std::unique_lock<std::mutex> lock(_buffer_mtx);
-        _buffer.clear();
+        while(!_buffer.empty()){
+            _buffer.pop();
+        }
     }
     _write_condition.notify_all();
 }
