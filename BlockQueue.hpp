@@ -26,7 +26,6 @@ public:
  */
     BlockQueue(size_t max_size=-1):_exited(false),_max_size(max_size)
     {
-
     }
     ~BlockQueue()
     {
@@ -77,7 +76,8 @@ public:
         return _pop_impl(t,false);
     }
 /**
- * @brief exit the queue, all the push/pop function will fail after exit.
+ * @brief exit the queue, all the push/pop function will fail after exit and all the
+ * threads that wait on this queue will wakeup.
  * 
  */
     void exit();
