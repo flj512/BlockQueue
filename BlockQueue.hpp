@@ -41,11 +41,11 @@ public:
     }
 /**
  * @brief push an item to the queue, if the queue is full this function will blocked.
- *
+ * the function will return fail when timeout or called exit function.
  * 
  * @param t the input data.
- * @param timeout the max wait time, the unit is second.
- * @return int return -1 if the queue is exited otherwise return 0
+ * @param timeout the max wait time, the unit is second, if <=0 will wait infinity time.
+ * @return int 0: success -1:fail
  */
     int push(const T& t,float timeout = 0.0)
     {
@@ -56,7 +56,7 @@ public:
  * 
  * @param t the input data.
  * @param drop_oldest indicate return fail or remove the oldest data when the queue is full.
- * @return int return 0 if success otherwise return -1
+ * @return int 0: success -1:fail
  */
     int push_noneblock(const T& t,bool drop_oldest=true)
     {
@@ -64,27 +64,28 @@ public:
     }
 /**
  * @brief get an item from the queue, if the queue is empty this function will blocked.
+ * the function will return fail when timeout or called exit function.
  * 
  * @param t the output data.
- * @param timeout the max wait time, the unit is second.
- * @return int return 0 if success otherwise return -1
+ * @param timeout the max wait time, the unit is second, if <=0 will wait infinity time.
+ * @return int 0: success -1:fail
  */
     int pop(T& t,float timeout = 0.0)
     {
         return _pop_impl(t,true,timeout);
     }
 /**
- * @brief get an item from the queue, if the queue is empty this function will return immediately.
+ * @brief get an item from the queue, if the queue is empty this function will return -1 immediately.
  * 
  * @param t the output data.
- * @return int return 0 if success otherwise return -1
+ * @return int 0: success -1:fail
  */
     int pop_noneblock(T& t)
     {
         return _pop_impl(t,false);
     }
 /**
- * @brief exit the queue, all the push/pop function will fail after exit and all the
+ * @brief exit the queue, all the push/push_noneblock/pop/pop_noneblock function will fail after called exit() and all the
  * threads that wait on this queue will wakeup.
  * 
  */
